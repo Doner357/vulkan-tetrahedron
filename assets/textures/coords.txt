@@ -1,0 +1,11 @@
+<map name="image-map">
+    <area target="" alt="" title="" href="" coords="117,1,0,83,247,87" shape="poly">
+    <area target="" alt="" title="" href="" coords="375,0,493,104,252,100" shape="poly">
+    <area target="" alt="" title="" href="" coords="118,153,1,248,250,250" shape="poly">
+    <area target="" alt="" title="" href="" coords="366,148,250,260,497,263" shape="poly">
+</map>
+
+(0.234, 0.9967), (0.0, 0.7233), (0.494, 0.71)
+(0.75, 1.0), (0.986, 0.6533), (0.504, 0.6667)
+(0.236, 0.49), (0.002, 0.1733), (0.5, 0.1667)
+(0.732, 0.5067), (0.5, 0.1333), (0.994, 0.1233)

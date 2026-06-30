@@ -4,8 +4,6 @@ An interactive Vulkan demo that renders a fractal tetrahedron with GLFW, GLM, De
 
 ## Screenshot
 
-Place a screenshot at `docs/screenshots/vulkan-tetrahedron.png` to show it here:
-
 ![Vulkan Tetrahedron screenshot](docs/screenshots/vulkan-tetrahedron.png)
 
 ## Features

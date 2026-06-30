@@ -10,6 +10,15 @@ TACO_PLATFORM_MK := 1
 # rm            : Fix the remove files and directories call
 # fixexecutable : Fix the different executable file suffix
 ifdef OS
+	ifneq ($(strip $(ComSpec)),)
+		override SHELL := $(ComSpec)
+	else ifneq ($(strip $(COMSPEC)),)
+		override SHELL := $(COMSPEC)
+	else
+		override SHELL := cmd.exe
+	endif
+	.SHELLFLAGS := /C
+
 	fixexecutable = $1.exe
 	rm            = for %%f in ($1) do if exist %%f\* (rmdir /s /q %%f) else if exist %%f (del /q %%f)
 	fixpath       = $(subst /,\,$1)

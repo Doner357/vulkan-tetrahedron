@@ -32,20 +32,12 @@ override target_assets_dirS := $(call extrdir,$(target_assets))
 # Directories needed by object files and dependency files
 override objs_mirror_dirs := $(call extrdir,$(objs))
 
-
-override spv_shaders_srcs := $(sort $(foreach d,$(spv_shaders_src_suffix),$(call rwildcard,$(src_dir),*$d)))
-# Target SPIR-V shaders
-override spv_shaders_targets := $(patsubst $(spv_shaders_src_dir)/%,$(spv_shaders_target_dir)/%.spv,$(spv_shaders_srcs))
-# Directories needed by SPIR-V shaders
-override spv_mirror_dirs := $(call extrdir,$(spv_shaders_targets))
-
-
 # Integrate directories need to be created
-override required_dirs := $(sort $(target_dir) $(target_assets_dirS) $(objs_mirror_dirs) $(spv_mirror_dirs))
+override required_dirs := $(sort $(target_dir) $(target_assets_dirS) $(objs_mirror_dirs))
 
 
 # Rule to link executable
-$(build_target): $(objs) $(spv_shaders_targets) | $(target_dir)
+$(build_target): $(objs) | $(target_dir)
 	$(call msg,Starting linking...)
 	@$(compiler) -o $@ $(objs) $(linker_flags)
 	$(call msg,Building finished!)
@@ -60,14 +52,6 @@ $$(obj_dir)/%.o: %$1 Makefile | $$(objs_mirror_dirs)
 endef
 # Compile
 $(eval $(foreach d,$(src_suffix_s),$(call compile,$d)))
-
-
-# For SPIR-V shaders
-$(spv_shaders_target_dir)/%.spv: $(spv_shaders_src_dir)/% | $(spv_mirror_dirs)
-	$(call msg,Compiling GLSL shader file "$<" to SPIR-V shader "$@".)
-	@$(spv_compiler) $< -o $@
-	$(call msg,Compiling finished!)
-
 
 # Ensure the build directory exists
 $(required_dirs):

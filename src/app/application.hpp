@@ -42,7 +42,7 @@
 #include "headers/tetrahedron.hpp"
 #include "headers/tacothreadpool.hpp"
 
-static const std::string WINDOW_NAME = reinterpret_cast<const char*>(u8"S11159023-賴弘翔");
+static const std::string WINDOW_NAME = "Vulkan Tetrahedron";
 
 // Window's width and height
 const uint32_t WIDTH  = 800;

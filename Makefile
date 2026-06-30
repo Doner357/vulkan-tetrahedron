@@ -66,3 +66,22 @@ include tacomake/platform.mk
 include tacomake/functions.mk
 include tacomake/rules.mk
 include tacomake/commands.mk
+
+
+####################################################
+# Project-specific SPIR-V shader build
+####################################################
+override spv_shaders_srcs := $(sort $(foreach d,$(spv_shaders_src_suffix),$(call rwildcard,$(spv_shaders_src_dir),*$d)))
+override spv_shaders_targets := $(patsubst $(spv_shaders_src_dir)/%,$(spv_shaders_target_dir)/%.spv,$(spv_shaders_srcs))
+override spv_mirror_dirs := $(call extrdir,$(spv_shaders_targets))
+
+$(build_target): $(spv_shaders_targets)
+
+$(spv_shaders_target_dir)/%.spv: $(spv_shaders_src_dir)/% | $(spv_mirror_dirs)
+	$(call msg,Compiling GLSL shader file "$<" to SPIR-V shader "$@".)
+	@$(call fixpath,$(spv_compiler)) $(call fixpath,$<) -o $(call fixpath,$@)
+	$(call msg,Compiling finished!)
+
+$(spv_mirror_dirs):
+	$(call msg,Deteced missing directory "$@"$(comma) create new one...)
+	@$(call mkdir,$(call fixpath,$@))
